@@ -5,14 +5,9 @@
   </head>
   <body>
     <h1>Discord Webhook Message Sender</h1>
-    <form>
-      <label for="message">Message:</label>
-      <input type="text" id="message" name="message">
-      <button type="button" id="submit">Submit</button>
-    </form>
     <button id="sendInitialMessage">Send Initial Message</button>
-<button id="startEditing">Start Editing</button>
-<button id="stopEditing">Stop Editing</button>
+    <button id="startEditing">Start Editing</button>
+    <button id="stopEditing">Stop Editing</button>
     <script>
             function getNumPlayers(serverName) {
             for (let i = 0; i < servers.length; i++) {
@@ -23,8 +18,8 @@
   return null; // If server with specified name not found
 }
             let player = 0;
+            let servers; // Declare the servers variable
             function getMessage(){
-                let servers; // Declare the servers variable
                 fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
                 .then(response => response.json()) // Convert the response to a JSON object
                 .then(data => {
@@ -32,7 +27,7 @@
                 console.log(servers); // Outputs the array of JSON objects
                 })
                 .catch(error => console.error(error));
-                player = getNumPlayers("NA-PVP-XboxOfficial-TheCenter944");
+                player = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567");
             } 
 
             const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1073067319506514110/tjoNdPt9fctwX9bVUZGibX8Nu4mwfn88xbAYCJzx-4c9Njg9LPH9RFYIhBU2pojNDweT";
