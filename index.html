@@ -14,16 +14,26 @@
 <button id="startEditing">Start Editing</button>
 <button id="stopEditing">Stop Editing</button>
     <script>
+            function getNumPlayers(serverName) {
+            for (let i = 0; i < servers.length; i++) {
+            if (servers[i].Name === serverName) {
+            return servers[i].NumPlayers;
+            }
+            }
+  return null; // If server with specified name not found
+}
             let player = 0;
-            function getMessage(){fetch('https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data[126].NumPlayers);
-                player = data[126].NumPlayers;
-            })
-            .catch(error => {
-                console.error(error);
-            });}
+            function getMessage(){
+                let servers; // Declare the servers variable
+                fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
+                .then(response => response.json()) // Convert the response to a JSON object
+                .then(data => {
+                servers = data; // Store the JSON data in the servers variable
+                console.log(servers); // Outputs the array of JSON objects
+                })
+                .catch(error => console.error(error));
+                player = getNumPlayers("NA-PVP-XboxOfficial-TheCenter944");
+            } 
 
             const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1073067319506514110/tjoNdPt9fctwX9bVUZGibX8Nu4mwfn88xbAYCJzx-4c9Njg9LPH9RFYIhBU2pojNDweT";
 
