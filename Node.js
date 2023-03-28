@@ -22,7 +22,7 @@ async function getMessage() {
   }
 }
 
-const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090089073340850246/iZRgk0nyWlIRxJXWx6ZabRef7FcIakX-nGOvs5DyUYxV-Ghz8sxLtjLOZ6FLTB0E-A7T";
+const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090092900576149574/bf_WS91ZSUjR1ckwqLbxJO8YIeBo1OZvvLJOfXvVDfJBfSUlQB6a0i3Ko0tegc0nGdOJ";
 
 async function sendMessage(content) {
   try {
