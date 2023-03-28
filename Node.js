@@ -22,7 +22,7 @@ function getMessage() {
     .catch(error => console.error(error));
 }
 
-const webhookURL = "https://discord.com/api/webhooks/1234567890/abcdefghijk";
+const webhookURL = "https://discord.com/api/webhooks/1090103309987233882/MBRYFfZL_5WpM3CjsWew7W1DE6b2-bm2i5v-8TIgKhdUNeJ1zT3xE7u9AJtOo393lmha";
 
 async function sendMessage(content) {
   try {
