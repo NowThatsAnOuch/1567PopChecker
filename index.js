@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 function getNumPlayers(serverName, servers) {
   for (let i = 0; i < servers.length; i++) {
     if (servers[i].Name === serverName) {
