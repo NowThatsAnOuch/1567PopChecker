@@ -8,14 +8,15 @@
     <button id="sendInitialMessage">Send Initial Message</button>
     <button id="startEditing">Start Editing</button>
     <button id="stopEditing">Stop Editing</button>
+    <script src="index.js"></script>
     <script>
       document.getElementById("startEditing").addEventListener("click", function() {
-      messageID = prompt("Enter message ID:");
-      startEditingMessage();
+        messageID = prompt("Enter message ID:");
+        startEditingMessage();
       });
 
       document.getElementById("stopEditing").addEventListener("click", function() {
-      clearInterval(intervalID);
+        clearInterval(intervalID);
       });
     </script>
   </body>
