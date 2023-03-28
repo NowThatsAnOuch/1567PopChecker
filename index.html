@@ -9,92 +9,14 @@
     <button id="startEditing">Start Editing</button>
     <button id="stopEditing">Stop Editing</button>
     <script>
-            function getNumPlayers(serverName) {
-            for (let i = 0; i < servers.length; i++) {
-            if (servers[i].Name === serverName) {
-            return servers[i].NumPlayers;
-            }
-            }
-  return null; // If server with specified name not found
-}
-            let player = 0;
-            let servers; // Declare the servers variable
-            function getMessage(){
-                fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
-                .then(response => response.json()) // Convert the response to a JSON object
-                .then(data => {
-                servers = data; // Store the JSON data in the servers variable
-                console.log(servers); // Outputs the array of JSON objects
-                })
-                .catch(error => console.error(error));
-                player = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567");
-            } 
+      document.getElementById("startEditing").addEventListener("click", function() {
+      messageID = prompt("Enter message ID:");
+      startEditingMessage();
+      });
 
-            const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1073067319506514110/tjoNdPt9fctwX9bVUZGibX8Nu4mwfn88xbAYCJzx-4c9Njg9LPH9RFYIhBU2pojNDweT";
-
-let messageID;
-
-async function sendMessage(content) {
-  try {
-    const response = await fetch(webhookURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ content: content })
-    });
-
-    console.log("Response from sendMessage: ", response);
-    return response.json();
-  } catch (error) {
-    console.error("An error occurred in sendMessage:", error);
-  }
-}
-
-async function editMessage(messageID, content) {
-  try {
-    const response = await fetch(webhookURL + "/messages" + "/" + messageID, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ content: content })
-    });
-
-    console.log("Response from editMessage: ", response);
-    console.log("Response JSON from editMessage: ", await response.json());
-  } catch (error) {
-    console.error("An error occurred in editMessage:", error);
-  }
-}
-
-async function example() {
-  const initialMessage = await sendMessage("Initializing");
-}
-
-document.getElementById("sendInitialMessage").addEventListener("click", example);
-
-
-let intervalID;
-
-function startEditingMessage() {
-  let content = "Goodbye, Discord!";
-  intervalID = setInterval(async () => {
-    getMessage();
-    content = `server pop on **1567** is: **${player}**`;
-    await editMessage(messageID, content);
-  }, 10000);
-}
-
-document.getElementById("startEditing").addEventListener("click", function() {
-  messageID = prompt("Enter message ID:");
-  startEditingMessage();
-});
-
-document.getElementById("stopEditing").addEventListener("click", function() {
-  clearInterval(intervalID);
-});
-
+      document.getElementById("stopEditing").addEventListener("click", function() {
+      clearInterval(intervalID);
+      });
     </script>
   </body>
 </html>
