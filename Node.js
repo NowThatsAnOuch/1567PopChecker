@@ -13,18 +13,16 @@ let player = 0;
 let servers; // Declare the servers variable
 
 function getMessage() {
-  fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
+  return fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
     .then(response => response.json()) // Convert the response to a JSON object
     .then(data => {
       servers = data; // Store the JSON data in the servers variable
       console.log(servers); // Outputs the array of JSON objects
     })
     .catch(error => console.error(error));
-  player = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers);
 }
 
-const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090102232537641111/L7ZAbX9drXWFvYS6U8ikE5C27AFB3TAfttHFAf8blRho1yNDa_hoPkgtc_xYr3_Nw1PV";
-let intervalID;
+const webhookURL = "https://discord.com/api/webhooks/1234567890/abcdefghijk";
 
 async function sendMessage(content) {
   try {
@@ -60,12 +58,17 @@ async function editMessage(messageID, content) {
   }
 }
 
+let intervalID;
+
 async function startEditingMessage(messageID) {
   let content = "Goodbye, Discord!";
   intervalID = setInterval(async () => {
-    getMessage();
-    content = `server pop on **1567** is: **${player}**`;
-    await editMessage(messageID, content);
+    await getMessage();
+    const serverPop = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers);
+    if (serverPop !== null) {
+      content = `Server population on **1567** is: **${serverPop}**`;
+      await editMessage(messageID, content);
+    }
   }, 10000);
 }
 
@@ -73,15 +76,11 @@ async function stopEditingMessage() {
   clearInterval(intervalID);
 }
 
-async function example() {
-  const initialMessage = await sendMessage("Initializing");
-}
-
-// Get the message ID from the command line arguments
-const messageID = process.argv[2];
-
-// Call the startEditingMessage() function with the message ID as an argument
-startEditingMessage(messageID);
-
-// Call the stopEditingMessage() function to stop editing
-stopEditingMessage();
+module.exports = {
+  startEditingMessage,
+  stopEditingMessage,
+  sendMessage,
+  webhookURL,
+  getMessage,
+  getNumPlayers
+};
