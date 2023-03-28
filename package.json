@@ -1,8 +1,25 @@
 {
-  "name": "example-app",
-  "description": "a really cool app",
+  "name": "ark-server-discord-bot",
   "version": "1.0.0",
-  "engines": {
-    "node": "18.x"
-  }
+  "description": "Discord bot that displays the player count of an Ark: Survival Evolved server",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "node-fetch": "^3.1.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/ark-server-discord-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "ark",
+    "server"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
 }
