@@ -6,7 +6,8 @@
   "dependencies": {
     "discord.js": "^13.6.0",
     "node-fetch": "^3.1.0",
-    "express": "^*"
+    "express": "^*",
+    "./functions": "^*"
   },
   "scripts": {
     "start": "node index.js"
