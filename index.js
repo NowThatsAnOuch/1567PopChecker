@@ -21,7 +21,7 @@ function getMessage() {
   player = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers);
 }
 
-const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1073067319506514110/tjoNdPt9fctwX9bVUZGibX8Nu4mwfn88xbAYCJzx-4c9Njg9LPH9RFYIhBU2pojNDweT";
+const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090102232537641111/L7ZAbX9drXWFvYS6U8ikE5C27AFB3TAfttHFAf8blRho1yNDa_hoPkgtc_xYr3_Nw1PV";
 let intervalID;
 
 async function sendMessage(content) {
