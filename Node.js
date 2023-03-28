@@ -9,20 +9,22 @@ function getNumPlayers(serverName, servers) {
   return null; // If server with specified name not found
 }
 
-async function getMessage() {
-  try {
-    const response = await fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json");
-    const data = await response.json();
-    const servers = data; // Store the JSON data in the servers variable
-    console.log(servers); // Outputs the array of JSON objects
-    return servers;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+let player = 0;
+let servers; // Declare the servers variable
+
+function getMessage() {
+  fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
+    .then(response => response.json()) // Convert the response to a JSON object
+    .then(data => {
+      servers = data; // Store the JSON data in the servers variable
+      console.log(servers); // Outputs the array of JSON objects
+    })
+    .catch(error => console.error(error));
+  player = getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers);
 }
 
-const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090092900576149574/bf_WS91ZSUjR1ckwqLbxJO8YIeBo1OZvvLJOfXvVDfJBfSUlQB6a0i3Ko0tegc0nGdOJ";
+const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1073067319506514110/tjoNdPt9fctwX9bVUZGibX8Nu4mwfn88xbAYCJzx-4c9Njg9LPH9RFYIhBU2pojNDweT";
+let intervalID;
 
 async function sendMessage(content) {
   try {
@@ -58,14 +60,11 @@ async function editMessage(messageID, content) {
   }
 }
 
-let intervalID;
-
 async function startEditingMessage(messageID) {
-  let servers = await getMessage();
-  let content = `server pop on **1567** is: **${getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers)}**`;
+  let content = "Goodbye, Discord!";
   intervalID = setInterval(async () => {
-    servers = await getMessage();
-    content = `server pop on **1567** is: **${getNumPlayers("EU-PVP-XboxOfficial-GenTwo1567", servers)}**`;
+    getMessage();
+    content = `server pop on **1567** is: **${player}**`;
     await editMessage(messageID, content);
   }, 10000);
 }
@@ -78,11 +77,11 @@ async function example() {
   const initialMessage = await sendMessage("Initializing");
 }
 
-// Call the example function to send the initial message
-example();
+// Get the message ID from the command line arguments
+const messageID = process.argv[2];
 
-// Export the functions that we want to use externally
-module.exports = {
-  startEditingMessage,
-  stopEditingMessage
-};
+// Call the startEditingMessage() function with the message ID as an argument
+startEditingMessage(messageID);
+
+// Call the stopEditingMessage() function to stop editing
+stopEditingMessage();
