@@ -1,5 +1,5 @@
 const fetch = import('node-fetch');
-const express = import('express');
+const express = require('express');
 const app = express();
 
 let servers;
