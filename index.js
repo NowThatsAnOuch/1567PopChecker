@@ -1,4 +1,4 @@
-const express = import('express');
+const express = require('express');
 const { startEditingMessage, stopEditingMessage, sendMessage, getMessage, getNumPlayers, setWebhookURL, setMessageID } = require('./node');
 
 const app = express();
