@@ -1,4 +1,8 @@
-const fetch = import('node-fetch');
+const fetch = require('node-fetch');
+const express = require('express');
+const app = express();
+
+let servers;
 
 function getNumPlayers(serverName, servers) {
   for (let i = 0; i < servers.length; i++) {
@@ -8,9 +12,6 @@ function getNumPlayers(serverName, servers) {
   }
   return null; // If server with specified name not found
 }
-
-let player = 0;
-let servers; // Declare the servers variable
 
 function getMessage() {
   return fetch("https://corsredirect.herokuapp.com/http://arkdedicated.com/xbox/cache/officialserverlist.json")
@@ -22,7 +23,8 @@ function getMessage() {
     .catch(error => console.error(error));
 }
 
-const webhookURL = "https://corsredirect.herokuapp.com/https://discord.com/api/webhooks/1090103309987233882/MBRYFfZL_5WpM3CjsWew7W1DE6b2-bm2i5v-8TIgKhdUNeJ1zT3xE7u9AJtOo393lmha";
+let webhookURL = "";
+let messageID = null;
 
 async function sendMessage(content) {
   try {
@@ -76,11 +78,28 @@ async function stopEditingMessage() {
   clearInterval(intervalID);
 }
 
+function changeMessageID(newMessageID) {
+  messageID = newMessageID;
+}
+
+function changeWebhookURL(newWebhookURL) {
+  webhookURL = newWebhookURL;
+}
+
+function initialize() {
+  app.listen(process.env.PORT || 3000, () => {
+    console.log(`Server is running on port ${process.env.PORT || 3000}`);
+  });
+
+  getMessage();
+  sendMessage("Initializing...");
+}
+
 module.exports = {
   startEditingMessage,
   stopEditingMessage,
   sendMessage,
-  webhookURL,
-  getMessage,
-  getNumPlayers
+  changeMessageID,
+  changeWebhookURL,
+  initialize
 };
